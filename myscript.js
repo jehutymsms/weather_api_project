@@ -2,13 +2,14 @@
 //You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
 
 const button = document.querySelector('button'),
-    input = document.querySelector('input');
+    inputCity = document.querySelector('#weatherSearchCity'),
+    inputCountry = document.querySelector('#weatherSearchCountry');
 
 async function getWeather(){
-    let defaultSearch = 'cats';
+    let defaultSearch = 'San Antonio';
 
-    if(input.value != ''){
-        defaultSearch = input.value;
+    if(inputCity.value != ''){
+        defaultSearch = inputCity.value;
     };
     try{
     // const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${defaultSearch}&APPID=0c32baf96cab07598f9ffa6ec5612d52&units=imperial`),
