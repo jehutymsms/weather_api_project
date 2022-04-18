@@ -8,15 +8,48 @@
     <title>API Weather Project</title>
 </head>
 <body>
-    <form>
-        <label for="weatherSearchCity">Type City:</label>
-        <input type="search" name="weatherSearchCity" id="weatherSearchCity" placeholder="San Antonio">
-        <br>
-        <label for="weatherSearchCountry">Type Country:</label>
-        <input type="search" name="weatherSearchCountry" id="weatherSearchCountry" placeholder="United States">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+    <section id="mainGridContainer">
+        <div id="gridFormItem">
+            <form>
+                <label for="weatherSearchCity">Type City:</label>
+                <input type="search" name="weatherSearchCity" id="weatherSearchCity" placeholder="San Antonio">
+                <br>
+                <label for="weatherSearchState">Type City:</label>
+                <input type="search" name="weatherSearchState" id="weatherSearchState" placeholder="Texas">
+                <br>
+                <label for="weatherSearchCountry">Type Country:</label>
+                <input type="search" name="weatherSearchCountry" id="weatherSearchCountry" placeholder="United States">
+                <br>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div id="gridMainDisplayItem">
+            <h2>Day: Monday 4/18/22</h2>
+            <p>Temp: 70</p>
+            <p>Humidity: 80%</p>
+            <p>Cloud Cast: Sunny</p>
+        </div>
+        <div id="gridForcastTitleItem">
+
+        </div>
+        <div id="gridDay1Item">
+
+        </div>
+        <div id="gridDay2Item">
+
+        </div>
+        <div id="gridDay3Item">
+
+        </div>
+        <div id="gridDay4Item">
+
+        </div>
+        <div id="gridDay5Item">
+
+        </div>
+    </section>
+
+    
     <script src="./myscript.js"></script>
 </body>
 </html>
