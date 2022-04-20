@@ -42,11 +42,6 @@ body{
     min-height: 100vh
 }
 
-#mainGridContainer{
-    min-height: 100vh;
-    min-width: 100vw;
-}
-
 #gridFormItem{
     grid-area: form;
   }
@@ -59,14 +54,27 @@ body{
 }
 #forcastArea{
     grid-area: item;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.gridItem{
+    text-align: center;
+    padding: 1em;
 }
 
-#mainGridContainer {
+#mainGridContainer{
     display: grid;
+    min-height: 100vh;
+    min-width: 100vw;
     grid-template-areas: 
     "form displayItem displayItem displayItem displayItem" 
     "form displayItem displayItem displayItem displayItem"
     "form displayItem displayItem displayItem displayItem"
     "titleItem titleItem titleItem titleItem titleItem"
     "item item item item item";
+}
+
+#mainGridContainer>*{
+    place-self: center;
 }
