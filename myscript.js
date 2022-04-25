@@ -5,7 +5,7 @@ const button = document.querySelector('button'),
     inputCity = document.querySelector('#weatherSearchCity'),
     inputCountry = document.querySelector('#weatherSearchCountry'),
     body = document.querySelector('body'),
-    mainDisplayItem = document.querySelector('#gridMainDisplayItem');
+    mainDisplayItem = document.getElementById('gridMainDisplayItem');
 
 async function getWeather(){
     let defaultSearch = 'San Antonio';
@@ -38,17 +38,17 @@ button.addEventListener('click', function(event){
 
 
 
-async function getWeatherImage(){
-    let defaultSearch = 'sunny';
-    if(input.value != ''){
-        defaultSearch = input.value;
-    };
+async function getWeatherImage(defaultSearch = 'sunny'){
     try{
     const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Re8JS3jj5HnRyaC0Gs1odAg1cxCjXmvP&s=${defaultSearch}`),
         weatherImage = await response.json();
 
-    body.src = weatherImage.data.images.original.url
+    body.style.backgroundImage = weatherImage.data.images.original.url
     }catch(err){
         console.log('search did not return anything')
     }
 };
+
+
+console.log(mainDisplayItem.lastElementChild.innerHTML)
+getWeatherImage()
