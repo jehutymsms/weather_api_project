@@ -1,11 +1,9 @@
 :root{
     --clr-primary-400:rgb(201, 201, 201);
-    --clr-primary-800:#000;
-    --clr-neutral-100:#fff;
-    
-    --clr-gradient-400:linear-gradient(62deg, #3a3d40 0%, #181719 100%);
 
-    --ff-accent:'Roboto Condensed', sans-serif;
+    /* Weather Colors */
+    
+
     --ff-primary:'Lato', sans-serif;
 }
 
@@ -39,7 +37,8 @@ html, body{
 }
 
 body{
-    min-height: 100vh
+    min-height: 100vh;
+    width: 100%;
 }
 
 #gridFormItem{
