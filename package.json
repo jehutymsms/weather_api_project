@@ -1,0 +1,33 @@
+{
+  "name": "weather_api_project",
+  "version": "1.0.0",
+  "description": "This is just a project to experiment with APUI calls",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack",
+    "dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jehutymsms/weather_api_project.git"
+  },
+  "keywords": [],
+  "author": "Andrew Humphries",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jehutymsms/weather_api_project/issues"
+  },
+  "homepage": "https://github.com/jehutymsms/weather_api_project#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  }
+}
