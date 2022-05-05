@@ -11,8 +11,15 @@ const button = document.querySelector('button'),
     body = document.querySelector('body'),
     mainDisplayItem = document.getElementById('gridMainDisplayItem'),
     gridItem = document.getElementsByClassName('gridItem'),
-    currentDate = Date();
+    currentDay = new Date().toLocaleDateString('en-us', {weekday:"long"}),
+    currentDate = new Date().toLocaleDateString('en-us', {
+    day:"2-digit",
+    month:"2-digit",
+    year:"2-digit"
+    });
 
+    console.log(currentDay);
+    console.log(currentDate);
 // Functions
 
 // API Retreival based on search
@@ -29,7 +36,7 @@ async function getWeather(){
         response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
         preciseWeatherData = await response2.json();
 
-        
+    console.log(preciseWeatherData)
     return preciseWeatherData
     
     }catch(err){
@@ -50,6 +57,8 @@ async function displayWeather (){
 
 let displayUpdate = (weatherData,number) =>{
     let displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:']
+    gridItem[number].children[0].innerHTML = `${currentDay} ${currentDate}`
+
     for (let i = 0; i < 4; i++) {
         gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
 

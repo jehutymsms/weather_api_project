@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv')
 
 module.exports = {
     mode: 'development',
@@ -11,14 +10,16 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        static: './dist',
+        static: '/dist',
+        client: {
+          reconnect: 5,
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
         title: "Weather API",
         template: "./src/index.html"
         }),
-        new Dotenv(),
     ],
     module: {
         rules: [
