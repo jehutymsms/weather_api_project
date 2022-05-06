@@ -18,7 +18,29 @@ const button = document.querySelector('button'),
     year:"2-digit"
     });
 
-    console.log(currentDay);
+    // let tomorrow = new Date(new Date().setDate(new Date().getDate() + 1))
+
+    // let testDate = tomorrow.toLocaleDateString('en-us', {
+    //     day:"2-digit",
+    //     month:"2-digit",
+    //     year:"2-digit"
+    //     })
+
+    // myDate.setDate(myDate.getDate() + 1)
+    var date = new Date(),
+    d = date.getDate(),
+    m = date.getMonth(),
+    y = date.getFullYear();
+
+
+    for(let i=0; i < 5; i++){
+        var curdate = new Date(y, m, d+i)
+        console.log(curdate.toLocaleDateString('en-us', {weekday:"long"}))
+    }
+    let today = new Date();
+    let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString('en-us', {weekday:"long"})
+
+    console.log(tomorrow);
     console.log(currentDate);
 // Functions
 
@@ -36,7 +58,6 @@ async function getWeather(){
         response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
         preciseWeatherData = await response2.json();
 
-    console.log(preciseWeatherData)
     return preciseWeatherData
     
     }catch(err){
