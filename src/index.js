@@ -27,21 +27,33 @@ const button = document.querySelector('button'),
     //     })
 
     // myDate.setDate(myDate.getDate() + 1)
-    var date = new Date(),
-    d = date.getDate(),
-    m = date.getMonth(),
-    y = date.getFullYear();
+
+    let time = new Date(),
+        d = time.getDate(),
+        m = time.getMonth(),
+        y = time.getFullYear();
 
 
     for(let i=0; i < 5; i++){
-        var curdate = new Date(y, m, d+i)
-        console.log(curdate.toLocaleDateString('en-us', {weekday:"long"}))
+        let curdate = new Date(y, m, d+i),
+        display = `${curdate.toLocaleDateString('en-us', {weekday:"long"})} ${curdate.toLocaleDateString()}`
+        gridItem[i].children[0].innerHTML = display
+        console.log(display)
     }
-    let today = new Date();
-    let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString('en-us', {weekday:"long"})
 
-    console.log(tomorrow);
-    console.log(currentDate);
+    
+
+    // for (let i = 0; i < 4; i++) {
+        // 
+    //     gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
+
+    // }
+
+    // let today = new Date();
+    // let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString('en-us', {weekday:"long"})
+
+    // console.log(tomorrow);
+    // console.log(currentDate);
 // Functions
 
 // API Retreival based on search
@@ -78,11 +90,13 @@ async function displayWeather (){
 
 let displayUpdate = (weatherData,number) =>{
     let displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:']
-    gridItem[number].children[0].innerHTML = `${currentDay} ${currentDate}`
 
     for (let i = 0; i < 4; i++) {
-        gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
-
+        if (i < 2) {
+            gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
+        }else{
+            gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
+        }
     }
 }
 
