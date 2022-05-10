@@ -76,7 +76,6 @@ let updateMainDisplay = (weatherData) => {
         if (i < 2) {
             mainDisplayItem.children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
         }else if (i == 4){
-            console.log('I am item 5')
             mainDisplayItem.children[i+1].alt = weatherData[3]
             mainDisplayItem.children[i+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
             console.log(mainDisplayItem.children[i+1].alt)

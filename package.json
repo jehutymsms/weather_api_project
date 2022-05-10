@@ -21,13 +21,24 @@
   },
   "homepage": "https://github.com/jehutymsms/weather_api_project#readme",
   "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
-    "dotenv": "^16.0.0",
-    "dotenv-webpack": "^7.1.0",
+    "cssnano": "^5.1.7",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss-loader": "^6.2.1",
+    "rucksack-css": "^1.0.2",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.72.0",
+    "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
   }
 }

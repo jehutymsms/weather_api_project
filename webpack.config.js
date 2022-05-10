@@ -1,41 +1,56 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+require("@babel/polyfill");
 
 module.exports = {
-    mode: 'development',
-    entry: './src/index.js',
-    output: {
-        filename: 'project-name.js',
-        path: path.resolve(__dirname, 'dist')
+  mode: 'development',
+  entry: ["@babel/polyfill", './src/index.js'],
+  output: {
+    filename: 'project-name.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    static: '/dist',
+    client: {
+      reconnect: 5,
     },
-    devtool: 'inline-source-map',
-    devServer: {
-        static: '/dist',
-        client: {
-          reconnect: 5,
-        },
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-        title: "Weather API",
-        template: "./src/index.html"
-        }),
-    ],
-    module: {
-        rules: [
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
           {
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
+            loader: MiniCssExtractPlugin.loader,
           },
-         {
-           test: /\.(png|svg|jpg|jpeg|gif)$/i,
-           type: 'asset/resource',
-         },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
         ],
       },
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true,
-    },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Weather API",
+      inject: 'body',
+      template: "./src/index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+  ],
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
 };
