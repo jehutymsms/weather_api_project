@@ -43,34 +43,36 @@ async function getWeather(){
     }
 };
 
-async function displayWeather (){
-    let weatherData = await getWeather(),
-    currentWeather = [
-        weatherData.daily[0].temp.max, 
-        weatherData.daily[0].temp.min, 
-        weatherData.daily[0].humidity, 
-        weatherData.daily[0].weather[0].description, 
-        weatherData.daily[0].weather[0].icon
+// Creates Weather Data Array
+let weatherArrayData = (weatherObject, number) =>{
+    let weatherDataArray = [
+        weatherObject.daily[number].temp.max, 
+        weatherObject.daily[number].temp.min, 
+        weatherObject.daily[number].humidity, 
+        weatherObject.daily[number].weather[0].description, 
+        weatherObject.daily[number].weather[0].icon
     ];
 
-    currentWeather[3] = currentWeather[3].replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+    weatherDataArray[2] = `${weatherDataArray[2]}%`
+    weatherDataArray[3] = weatherDataArray[3].replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+    return weatherDataArray
+};
+
+// Updates Display of weather data
+async function displayWeather (){
+    let weatherData = await getWeather(),
+    currentWeather = weatherArrayData(weatherData, 0);
 
     updateMainDisplay(currentWeather)
 
     for (let i = 0; i < 5; i++) {
-        let weatherArray = [
-            weatherData.daily[i].temp.max, 
-            weatherData.daily[i].temp.min, 
-            weatherData.daily[i].humidity, 
-            weatherData.daily[i].weather[0].description,
-            weatherData.daily[i].weather[0].icon
-        ]
-        weatherArray[3] = weatherArray[3].replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+        let weatherArray = weatherArrayData(weatherData, i)
         displayUpdate(weatherArray,i)
 
     }
 };
 
+// Updates main display of weather Data
 let updateMainDisplay = (weatherData) => {
     for (let i = 0; i < 5; i++) {
         if (i < 2) {
@@ -78,14 +80,28 @@ let updateMainDisplay = (weatherData) => {
         }else if (i == 4){
             mainDisplayItem.children[i+1].alt = weatherData[3]
             mainDisplayItem.children[i+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
-        }
-            
-        else{
+        }else{
             mainDisplayItem.children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
         }
     }
 };
-
+//----------------------Working on this function
+// Display Data Update Function
+let dataDisplayUpdate = (domElement, weatherData, elementNumber, number) => {
+    if (number < 2) {
+        domElement[elementNumber].children[number+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
+        return
+    }
+    if (number == 4){
+        domElement[elementNumber].children[number+1].alt = weatherData[3]
+        domElement[elementNumber].children[number+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
+        return
+    }else{
+        domElement[elementNumber].children[number+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
+    }
+};
+ 
+// Updates 5 Day Display data
 let displayUpdate = (weatherData,number) =>{
     for (let i = 0; i < 5; i++) {
         if (i < 2) {
@@ -99,6 +115,7 @@ let displayUpdate = (weatherData,number) =>{
     }
 };
 
+// Defaut Date Display for Weather Data
 let defaultDateDisplay = () => {
 
     mainDisplayItem.children[0].innerHTML = `${currentDay} ${currentDate}`

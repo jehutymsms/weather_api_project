@@ -41,6 +41,9 @@ body{
     width: 100%;
 }
 
+#titleGridItem{
+    grid-area: gridTitle;
+  }
 #gridFormItem{
     grid-area: form;
   }
@@ -66,7 +69,8 @@ body{
     display: grid;
     min-height: 100vh;
     min-width: 100vw;
-    grid-template-areas: 
+    grid-template-areas:
+    "gridTitle gridTitle gridTitle gridTitle gridTitle"  
     "form displayItem displayItem displayItem displayItem" 
     "form displayItem displayItem displayItem displayItem"
     "form displayItem displayItem displayItem displayItem"
