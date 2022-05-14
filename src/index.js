@@ -16,9 +16,9 @@ const button = document.querySelector('button'),
         month:"2-digit",
         year:"2-digit"
     }),
-    time = new Date(),
+    time = new Date()
 
-    displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:'];
+    const displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:'];
 
 
 // Functions
@@ -72,46 +72,34 @@ async function displayWeather (){
     }
 };
 
-// Updates main display of weather Data
-let updateMainDisplay = (weatherData) => {
-    for (let i = 0; i < 5; i++) {
-        if (i < 2) {
-            mainDisplayItem.children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
-        }else if (i == 4){
-            mainDisplayItem.children[i+1].alt = weatherData[3]
-            mainDisplayItem.children[i+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
-        }else{
-            mainDisplayItem.children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
-        }
-    }
-};
-//----------------------Working on this function
 // Display Data Update Function
-let dataDisplayUpdate = (domElement, weatherData, elementNumber, number) => {
+let dataDisplayUpdate = (domElement, weatherData, number) => {
     if (number < 2) {
-        domElement[elementNumber].children[number+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
+        domElement.children[number+1].innerHTML = `${displayText[number]} ${weatherData[number]}°`
         return
     }
     if (number == 4){
-        domElement[elementNumber].children[number+1].alt = weatherData[3]
-        domElement[elementNumber].children[number+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
+        domElement.children[number+1].alt = weatherData[3]
+        domElement.children[number+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
         return
-    }else{
-        domElement[elementNumber].children[number+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
+    }
+
+    domElement.children[number+1].innerHTML = `${displayText[number]} ${weatherData[number]}`
+};
+
+// Updates main display of weather Data
+let updateMainDisplay = (weatherData) => {
+    for (let i = 0; i < 5; i++) {
+        dataDisplayUpdate(mainDisplayItem, weatherData, i)
     }
 };
+//----------------------Working on this function
+
  
 // Updates 5 Day Display data
 let displayUpdate = (weatherData,number) =>{
     for (let i = 0; i < 5; i++) {
-        if (i < 2) {
-            gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}°`
-        }else if (i == 4){
-            gridItem[number].children[i+1].alt = weatherData[3]
-            gridItem[number].children[i+1].src = `http://openweathermap.org/img/wn/${weatherData[4]}@2x.png`
-        }else{
-            gridItem[number].children[i+1].innerHTML = `${displayText[i]} ${weatherData[i]}`
-        }
+        dataDisplayUpdate(gridItem[number], weatherData, i)
     }
 };
 
