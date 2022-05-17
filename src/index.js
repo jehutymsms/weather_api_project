@@ -3,9 +3,12 @@ import './style.css';
 //Goal of Project
 
 // Variables
+// console.log(lookup.byCountry('United States of America').iso2)
+
 
 const button = document.querySelector('button'),
     inputCity = document.querySelector('#weatherSearchCity'),
+    inputState = document.querySelector('#weatherSearchState'),
     inputCountry = document.querySelector('#weatherSearchCountry'),
     body = document.querySelector('body'),
     mainDisplayItem = document.getElementById('gridMainDisplayItem'),
@@ -16,21 +19,43 @@ const button = document.querySelector('button'),
         month:"2-digit",
         year:"2-digit"
     }),
-    time = new Date()
-
-    const displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:'];
+    time = new Date(),
+    lookupCCode = require('country-code-lookup'),
+    lookupSCode = require('us-state-codes'),
+    displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:'];
 
 
 // Functions
+// Create a function that returns a search parameter 
+// must return {city name},{state code}(This is for USA Only),{country code}
 
+let searchItem = (city, state, country) => {
+    let defaultSearch = ['San Antonio', 'Texas' , 'United States']
+
+    if(city != ''){
+        defaultSearch[0] = city;
+    };
+    if(state != ''){
+        defaultSearch[1] = state;
+    };
+    if(country != ''){
+        defaultSearch[2] = country;
+    };
+
+    defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+    defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
+
+    if (defaultSearch[2] == 'US') {
+        return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+    }
+
+    return `${defaultSearch[0]},${defaultSearch[2]}`
+}
 // API Retreival based on search
 async function getWeather(){
-    let defaultSearch = 'San Antonio',
+    let defaultSearch = searchItem(inputCity.value, inputState.value, inputCountry.value),
         apiKey = '33768e0de385b09222a84be10f07a718';
 
-    if(inputCity.value != ''){
-        defaultSearch = inputCity.value;
-    };
     try{
     const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${defaultSearch}&limit=1&appid=${apiKey}`),
         weatherData = await response.json(),
