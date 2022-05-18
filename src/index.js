@@ -11,6 +11,7 @@ const button = document.querySelector('button'),
     inputState = document.querySelector('#weatherSearchState'),
     inputCountry = document.querySelector('#weatherSearchCountry'),
     body = document.querySelector('body'),
+    form = document.querySelector('form'),
     mainDisplayItem = document.getElementById('gridMainDisplayItem'),
     gridItem = document.getElementsByClassName('gridItem'),
     currentDay = new Date().toLocaleDateString('en-us', {weekday:"long"}),
@@ -51,6 +52,8 @@ let searchItem = (city, state, country) => {
 
     return `${defaultSearch[0]},${defaultSearch[2]}`
 }
+
+
 // API Retreival based on search
 async function getWeather(){
     let defaultSearch = searchItem(inputCity.value, inputState.value, inputCountry.value),
@@ -61,6 +64,7 @@ async function getWeather(){
         weatherData = await response.json(),
         response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
         preciseWeatherData = await response2.json();
+        console.log(preciseWeatherData)
     return preciseWeatherData
     
     }catch(err){
@@ -118,8 +122,6 @@ let updateMainDisplay = (weatherData) => {
         dataDisplayUpdate(mainDisplayItem, weatherData, i)
     }
 };
-//----------------------Working on this function
-
  
 // Updates 5 Day Display data
 let displayUpdate = (weatherData,number) =>{
@@ -151,4 +153,6 @@ button.addEventListener('click', function(event){
 });
 
 
+
+form.reset()
 defaultDateDisplay();
