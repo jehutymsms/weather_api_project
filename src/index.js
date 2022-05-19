@@ -7,9 +7,7 @@ import './style.css';
 
 
 const button = document.querySelector('button'),
-    inputCity = document.querySelector('#weatherSearchCity'),
-    inputState = document.querySelector('#weatherSearchState'),
-    inputCountry = document.querySelector('#weatherSearchCountry'),
+    searchTerm = document.querySelector('#searchTerm'),
     body = document.querySelector('body'),
     form = document.querySelector('form'),
     mainDisplayItem = document.getElementById('gridMainDisplayItem'),
@@ -29,34 +27,42 @@ const button = document.querySelector('button'),
 // Functions
 // Create a function that returns a search parameter 
 // must return {city name},{state code}(This is for USA Only),{country code}
+// Working on this function----------------
+let searchItem = (string) => {
+    let defaultSearch = ['San Antonio','Texas','United States'],
+        sItem = string.split(',')
 
-let searchItem = (city, state, country) => {
-    let defaultSearch = ['San Antonio', 'Texas' , 'United States']
-
-    if(city != ''){
-        defaultSearch[0] = city;
+    if(sItem[0] != ''){
+        defaultSearch[0] = sItem[0];
     };
-    if(state != ''){
-        defaultSearch[1] = state;
+    if(sItem[1] != ''){
+        defaultSearch[1] = sItem[1];
     };
-    if(country != ''){
-        defaultSearch[2] = country;
+    if(sItem[2] != ''){
+        defaultSearch[2] = sItem[2];
     };
 
-    defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-    defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
 
-    if (defaultSearch[2] == 'US') {
-        return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+    if (defaultSearch[2] != '') {
+        defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
     }
 
-    return `${defaultSearch[0]},${defaultSearch[2]}`
+    if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
+        defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+        return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+    }
+    
+
+
+    defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+    
+    return `${defaultSearch[0]}`
 }
 
 
 // API Retreival based on search
 async function getWeather(){
-    let defaultSearch = searchItem(inputCity.value, inputState.value, inputCountry.value),
+    let defaultSearch = searchItem(searchTerm.value),
         apiKey = '33768e0de385b09222a84be10f07a718';
 
     try{

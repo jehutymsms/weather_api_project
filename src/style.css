@@ -46,7 +46,11 @@ body{
   }
 #gridFormItem{
     grid-area: form;
-  }
+    padding: 1em;
+}
+#gridFormItem>*{
+    padding: 0.5em;
+}
 #gridMainDisplayItem{
     grid-area: displayItem;
 }
