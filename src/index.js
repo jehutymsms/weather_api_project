@@ -1,5 +1,5 @@
 import './style.css';
-import apiSearch from './apiSearch';
+import {apiSearch} from './/apiSearch';
 
 //Goal of Project
 

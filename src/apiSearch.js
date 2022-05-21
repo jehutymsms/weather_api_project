@@ -1,14 +1,21 @@
-export default apiSearch = () =>{
+export const apiSearch = (() =>{
     // Variables
     const defaultSearch = ['San Antonio','Texas','United States'],
         searchTerm = document.querySelector('#searchTerm'),
-        apiKey = '33768e0de385b09222a84be10f07a718'
+        apiKey = '33768e0de385b09222a84be10f07a718',
+        lookupCCode = require('country-code-lookup'),
+        lookupSCode = require('us-state-codes')
 
     // Functions
 
 
     // must return {city name},{state code}(This is for USA Only),{country code}
 
+    
+    let codeTest = () => {
+        // This will return Null if the state is not a state
+        console.log(lookupSCode.getStateCodeByStateName('Texas'))
+    }
 
     let searchItem = (string) => {
         let defaultSearch = ['San Antonio','Texas','United States'],
@@ -61,5 +68,5 @@ export default apiSearch = () =>{
         }
     };
 
-
-}
+    return {codeTest}
+})()
