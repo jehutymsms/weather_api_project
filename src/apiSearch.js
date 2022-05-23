@@ -14,40 +14,61 @@ export const apiSearch = (() =>{
     
     let codeTest = () => {
         // This will return Null if the state is not a state
-        console.log(lookupSCode.getStateCodeByStateName('Texas'))
+        console.log(searchItem('San Antonio, Texas, United States of America'))
+        // console.log(searchItem('London, England'))
     }
 
+
+    //  String Input Examples:
+    //  City Name, Country Name
+    //  City Name, State Name(Only for US), Country Name 
+
+    // Format String for Searching with API
     let searchItem = (string) => {
-        let defaultSearch = ['San Antonio','Texas','United States'],
-            sItem = string.split(',')
-    
-        if(sItem[0] != ''){
-            defaultSearch[0] = sItem[0];
-        };
-        if(sItem[1] != ''){
-            defaultSearch[1] = sItem[1];
-            defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-        };
-        if(sItem[2] != ''){
-            defaultSearch[2] = sItem[2];
-            defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
-        };
-    
-    
-        if (defaultSearch[2] != '') {
-            defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
+        let sItem = string.split(','),
+            wSpaceRemoved = []
+
+        for (let i = 0; i < sItem.length; i++) {
+            wSpaceRemoved[i]= sItem[i].replace(/^\s+|\s+$/g, '')        
         }
-    
-        if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
-            defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-            return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+
+        if (wSpaceRemoved.length == 2) {
+            wSpaceRemoved[1] = lookupCCode.byCountry(wSpaceRemoved[1]).iso2
         }
+
+        if (wSpaceRemoved.length == 3) {
+            wSpaceRemoved[1] = lookupSCode.getStateCodeByStateName(wSpaceRemoved[1])
+            console.log(wSpaceRemoved[2])
+            // wSpaceRemoved[2] = lookupCCode.byCountry(wSpaceRemoved[2]).iso2
+        }
+
+        // let sItem = string.split(',')
+    
+        // if(sItem[1] != ''){
+        //     defaultSearch[1] = sItem[1];
+        //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+        // };
+        // if(sItem[2] != ''){
+        //     defaultSearch[2] = sItem[2];
+        //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
+        // };
+    
+    
+        // if (defaultSearch[2] != '') {
+        //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
+        // }
+    
+        // if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
+        //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+        //     return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+        // }
         
     
     
-        defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+        // defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
         
-        return `${defaultSearch[0]}`
+        // return `${defaultSearch[0]}`
+        return {string ,sItem , wSpaceRemoved}
     }
     
     

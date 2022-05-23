@@ -30,34 +30,34 @@ const button = document.querySelector('button'),
 // must return {city name},{state code}(This is for USA Only),{country code}
 // Working on this function----------------
 let searchItem = (string) => {
-    let defaultSearch = ['San Antonio','Texas','United States'],
-        sItem = string.split(',')
+    // let defaultSearch = ['San Antonio','Texas','United States'],
+    //     sItem = string.split(',')
 
-    if(sItem[0] != ''){
-        defaultSearch[0] = sItem[0];
-    };
-    if(sItem[1] != ''){
-        defaultSearch[1] = sItem[1];
-    };
-    if(sItem[2] != ''){
-        defaultSearch[2] = sItem[2];
-    };
+    // if(sItem[0] != ''){
+    //     defaultSearch[0] = sItem[0];
+    // };
+    // if(sItem[1] != ''){
+    //     defaultSearch[1] = sItem[1];
+    // };
+    // if(sItem[2] != ''){
+    //     defaultSearch[2] = sItem[2];
+    // };
 
 
-    if (defaultSearch[2] != '') {
-        defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
-    }
+    // if (defaultSearch[2] != '') {
+    //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
+    // }
 
-    if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
-        defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-        return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
-    }
+    // if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
+    //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+    //     return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
+    // }
     
 
 
-    defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
+    // defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
     
-    return `${defaultSearch[0]}`
+    return apiSearch.codeTest()
 }
 
 
@@ -71,7 +71,6 @@ async function getWeather(){
         weatherData = await response.json(),
         response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
         preciseWeatherData = await response2.json();
-        console.log(preciseWeatherData)
     return preciseWeatherData
     
     }catch(err){
@@ -155,7 +154,8 @@ let defaultDateDisplay = () => {
 
 // Event Listeners
 button.addEventListener('click', function(event){
-    displayWeather();
+    apiSearch.codeTest()
+    // displayWeather();
     event.preventDefault();
 });
 
