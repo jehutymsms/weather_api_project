@@ -138,7 +138,6 @@ let displayUpdate = (weatherData,number) =>{
 
 // Defaut Date Display for Weather Data
 let defaultDateDisplay = () => {
-
     mainDisplayItem.children[0].innerHTML = `${currentDay} ${currentDate}`
 
     for(let i=0; i < 5; i++){
@@ -154,7 +153,7 @@ let defaultDateDisplay = () => {
 
 // Event Listeners
 button.addEventListener('click', function(event){
-    apiSearch.codeTest()
+    console.log(apiSearch.searchItem('San Antonio, Texas, United States '))
     // displayWeather();
     event.preventDefault();
 });

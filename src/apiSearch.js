@@ -11,13 +11,6 @@ export const apiSearch = (() =>{
 
     // must return {city name},{state code}(This is for USA Only),{country code}
 
-    
-    let codeTest = () => {
-        // This will return Null if the state is not a state
-        console.log(searchItem('San Antonio, Texas, United States of America'))
-        // console.log(searchItem('London, England'))
-    }
-
 
     //  String Input Examples:
     //  City Name, Country Name
@@ -38,8 +31,8 @@ export const apiSearch = (() =>{
 
         if (wSpaceRemoved.length == 3) {
             wSpaceRemoved[1] = lookupSCode.getStateCodeByStateName(wSpaceRemoved[1])
-            console.log(wSpaceRemoved[2])
-            // wSpaceRemoved[2] = lookupCCode.byCountry(wSpaceRemoved[2]).iso2
+            console.log(lookupCCode.byCountry(wSpaceRemoved[2]).iso2)
+            wSpaceRemoved[2] = lookupCCode.byCountry(wSpaceRemoved[2]).iso2
         }
 
         // let sItem = string.split(',')
@@ -68,7 +61,8 @@ export const apiSearch = (() =>{
         // defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
         
         // return `${defaultSearch[0]}`
-        return {string ,sItem , wSpaceRemoved}
+        // return lookupCCode.countries
+        return {wSpaceRemoved}
     }
     
     
@@ -89,5 +83,5 @@ export const apiSearch = (() =>{
         }
     };
 
-    return {codeTest}
+    return {searchItem}
 })()
