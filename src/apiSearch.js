@@ -11,7 +11,38 @@ export const apiSearch = (() =>{
 
     // must return {city name},{state code}(This is for USA Only),{country code}
 
+    let isoStateCode = (string) => {
+        try {
+            return lookupSCode.getStateCodeByStateName(string)
+        } catch (error) {
+            return 'State Does not exist'
+        }
+    }
+    let isoCountryCode = (string) => {
+        try {
+            return lookupCCode.byCountry(string)
+        } catch (error) {
+            return 'Country Does not exist'
+        } 
+    }
 
+    let stringFormat = (stringArray) => {
+        let array = []
+
+        for (let i = 0; i < stringArray.length; i++) {
+            if (i == 0) {
+                array[i]= stringArray[i]
+                    .replace(/(\s+$|^\s+)/g, '') 
+            // remove whitespace from begining and end of string
+                    .replace(/\s+/g, '+'); 
+            // replace any remaining white space with +, so it works in api call  
+                continue
+            }
+            array[i]= stringArray[i]
+                .replace(/(\s+$|^\s+)/g, '') 
+        }
+        return array
+    }
     //  String Input Examples:
     //  City Name, Country Name
     //  City Name, State Name(Only for US), Country Name 
@@ -19,49 +50,19 @@ export const apiSearch = (() =>{
     // Format String for Searching with API
     let searchItem = (string) => {
         let sItem = string.split(','),
-            wSpaceRemoved = []
-
-        for (let i = 0; i < sItem.length; i++) {
-            wSpaceRemoved[i]= sItem[i].replace(/^\s+|\s+$/g, '')        
-        }
-
+            wSpaceRemoved = stringFormat(sItem)
         if (wSpaceRemoved.length == 2) {
-            wSpaceRemoved[1] = lookupCCode.byCountry(wSpaceRemoved[1]).iso2
+            try {
+                wSpaceRemoved[1] = isoCountryCode(wSpaceRemoved[1]).iso2
+            } catch (error) {
+                return 'Country Does not exist'
+            } 
         }
 
         if (wSpaceRemoved.length == 3) {
-            wSpaceRemoved[1] = lookupSCode.getStateCodeByStateName(wSpaceRemoved[1])
-            console.log(lookupCCode.byCountry(wSpaceRemoved[2]).iso2)
-            wSpaceRemoved[2] = lookupCCode.byCountry(wSpaceRemoved[2]).iso2
+            wSpaceRemoved[1] = isoStateCode(wSpaceRemoved[1]).iso2
+            wSpaceRemoved[2] = isoCountryCode(wSpaceRemoved[2]).iso2
         }
-
-        // let sItem = string.split(',')
-    
-        // if(sItem[1] != ''){
-        //     defaultSearch[1] = sItem[1];
-        //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-        // };
-        // if(sItem[2] != ''){
-        //     defaultSearch[2] = sItem[2];
-        //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
-        // };
-    
-    
-        // if (defaultSearch[2] != '') {
-        //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
-        // }
-    
-        // if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
-        //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-        //     return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
-        // }
-        
-    
-    
-        // defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-        
-        // return `${defaultSearch[0]}`
-        // return lookupCCode.countries
         return {wSpaceRemoved}
     }
     

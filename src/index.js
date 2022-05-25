@@ -154,6 +154,8 @@ let defaultDateDisplay = () => {
 // Event Listeners
 button.addEventListener('click', function(event){
     console.log(apiSearch.searchItem('San Antonio, Texas, United States '))
+    console.log(apiSearch.searchItem('San Antonio, United Stats'))
+    console.log(apiSearch.searchItem('San Antonio'))
     // displayWeather();
     event.preventDefault();
 });
