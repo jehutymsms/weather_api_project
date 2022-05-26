@@ -12,18 +12,17 @@ export const apiSearch = (() =>{
     // must return {city name},{state code}(This is for USA Only),{country code}
 
     let isoStateCode = (string) => {
-        try {
+        if (lookupSCode.getStateCodeByStateName(string) !== null) {
             return lookupSCode.getStateCodeByStateName(string)
-        } catch (error) {
-            return 'State Does not exist'
         }
+            return 'State Does not exist'
+
     }
     let isoCountryCode = (string) => {
-        try {
-            return lookupCCode.byCountry(string)
-        } catch (error) {
-            return 'Country Does not exist'
-        } 
+        if (lookupCCode.byCountry(string) !== null) {
+            return lookupCCode.byCountry(string).iso2
+        }
+        return 'Country Does not exist'
     }
 
     let stringFormat = (stringArray) => {
@@ -47,32 +46,47 @@ export const apiSearch = (() =>{
     //  City Name, Country Name
     //  City Name, State Name(Only for US), Country Name 
 
+    let codeValidation = (searchTerm) =>{
+        if (searchTerm.includes('Country Does not exist')) {
+            return `Invalid Entry: Country Does not exist`
+        }
+        if (searchTerm.includes('State Does not exist')) {
+            return `Invalid Entry: State Does not exist`
+        }
+        return searchTerm
+    }
+
     // Format String for Searching with API
     let searchItem = (string) => {
         let sItem = string.split(','),
             wSpaceRemoved = stringFormat(sItem)
         if (wSpaceRemoved.length == 2) {
-            try {
-                wSpaceRemoved[1] = isoCountryCode(wSpaceRemoved[1]).iso2
-            } catch (error) {
-                return 'Country Does not exist'
-            } 
+            wSpaceRemoved[1] = isoCountryCode(wSpaceRemoved[1])
         }
 
         if (wSpaceRemoved.length == 3) {
-            wSpaceRemoved[1] = isoStateCode(wSpaceRemoved[1]).iso2
-            wSpaceRemoved[2] = isoCountryCode(wSpaceRemoved[2]).iso2
+            wSpaceRemoved[1] = isoStateCode(wSpaceRemoved[1])
+            wSpaceRemoved[2] = isoCountryCode(wSpaceRemoved[2])
         }
-        return {wSpaceRemoved}
+
+        return wSpaceRemoved
     }
     
+    let formatSearch = () =>{
+        let defaultSearch = searchItem(searchTerm.value)
+        if (defaultSearch[2].search('Invalid') == -1 ||defaultSearch[1].search('Invalid') == -1 ) {
+            getWeather(defaultSearch)
+        }
+        return defaultSearch
+    }
+
     
     // API Retreival based on search
-    async function getWeather(){
+    async function getWeather(apiItem){
         let defaultSearch = searchItem(searchTerm.value)
     
         try{
-        const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${defaultSearch}&limit=1&appid=${apiKey}`),
+        const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${apiItem}&limit=1&appid=${apiKey}`),
             weatherData = await response.json(),
             response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
             preciseWeatherData = await response2.json();
@@ -84,5 +98,5 @@ export const apiSearch = (() =>{
         }
     };
 
-    return {searchItem}
+    return {formatSearch}
 })()
