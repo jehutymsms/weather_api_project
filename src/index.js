@@ -1,7 +1,9 @@
 import './style.css';
 import {apiSearch} from './/apiSearch';
+import { formatSearch } from './formatSearch';
 
 //Goal of Project
+
 
 // Variables
 // console.log(lookup.byCountry('United States of America').iso2)
@@ -20,63 +22,11 @@ const button = document.querySelector('button'),
         year:"2-digit"
     }),
     time = new Date(),
-    lookupCCode = require('country-code-lookup'),
-    lookupSCode = require('us-state-codes'),
     displayText = ['High:', 'Low:', 'Humidity:', 'Cloud Cast:'];
 
 
 // Functions
-// Create a function that returns a search parameter 
-// must return {city name},{state code}(This is for USA Only),{country code}
-// Working on this function----------------
-let searchItem = (string) => {
-    // let defaultSearch = ['San Antonio','Texas','United States'],
-    //     sItem = string.split(',')
 
-    // if(sItem[0] != ''){
-    //     defaultSearch[0] = sItem[0];
-    // };
-    // if(sItem[1] != ''){
-    //     defaultSearch[1] = sItem[1];
-    // };
-    // if(sItem[2] != ''){
-    //     defaultSearch[2] = sItem[2];
-    // };
-
-
-    // if (defaultSearch[2] != '') {
-    //     defaultSearch[2] = lookupCCode.byCountry(defaultSearch[2]).iso2
-    // }
-
-    // if (defaultSearch[1] != '' && defaultSearch[2] == 'US') {
-    //     defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-    //     return `${defaultSearch[0]},${defaultSearch[1]},${defaultSearch[2]}`
-    // }
-    
-
-
-    // defaultSearch[1] = lookupSCode.getStateCodeByStateName(defaultSearch[1])
-    
-    return apiSearch.codeTest()
-}
-
-
-// API Retreival based on search
-async function getWeather(){
-    let defaultSearch = searchItem(searchTerm.value),
-        apiKey = '33768e0de385b09222a84be10f07a718';
-
-    try{
-    const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${defaultSearch}&limit=1&appid=${apiKey}`),
-        weatherData = await response.json(),
-        response2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData[0].lat}&lon=${weatherData[0].lon}&exclude=current,minutely,hourly&appid=${apiKey}&units=imperial`),
-        preciseWeatherData = await response2.json();
-    return preciseWeatherData
-    
-    }catch(err){
-        console.log('search did not return anything')
-    }
-};
 
 // Creates Weather Data Array
 let weatherArrayData = (weatherObject, number) =>{
@@ -95,7 +45,7 @@ let weatherArrayData = (weatherObject, number) =>{
 
 // Updates Display of weather data
 async function displayWeather (){
-    let weatherData = await getWeather(),
+    let weatherData = await apiSearch.getWeather(),
     currentWeather = weatherArrayData(weatherData, 0);
 
     updateMainDisplay(currentWeather)
@@ -153,10 +103,7 @@ let defaultDateDisplay = () => {
 
 // Event Listeners
 button.addEventListener('click', function(event){
-    console.log(apiSearch.formatSearch('San Antonio, Texa, United States '))
-    console.log(apiSearch.formatSearch('San Antonio, United Stats'))
-    console.log(apiSearch.formatSearch('San Antonio'))
-    // displayWeather();
+    formatSearch.apiItem()
     event.preventDefault();
 });
 

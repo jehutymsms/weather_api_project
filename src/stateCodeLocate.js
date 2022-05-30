@@ -4,16 +4,16 @@ export const stateCodeLocate = (() =>{
     const _MapFullNameAbbr = {"arizona":"AZ","alabama":"AL","alaska":"AK","arkansas":"AR","california":"CA","colorado":"CO","connecticut":"CT","districtofcolumbia":"DC","delaware":"DE","florida":"FL","georgia":"GA","hawaii":"HI","idaho":"ID","illinois":"IL","indiana":"IN","iowa":"IA","kansas":"KS","kentucky":"KY","louisiana":"LA","maine":"ME","maryland":"MD","massachusetts":"MA","michigan":"MI","minnesota":"MN","mississippi":"MS","missouri":"MO","montana":"MT","nebraska":"NE","nevada":"NV","newhampshire":"NH","newjersey":"NJ","newmexico":"NM","newyork":"NY","northcarolina":"NC","northdakota":"ND","ohio":"OH","oklahoma":"OK","oregon":"OR","pennsylvania":"PA","rhodeisland":"RI","southcarolina":"SC","southdakota":"SD","tennessee":"TN","texas":"TX","utah":"UT","vermont":"VT","virginia":"VA","washington":"WA","westvirginia":"WV","wisconsin":"WI","wyoming":"WY","alberta":"AB","britishcolumbia":"BC","manitoba":"MB","newbrunswick":"NB","newfoundland":"NF","northwestterritory":"NT","novascotia":"NS","nunavut":"NU","ontario":"ON","princeedwardisland":"PE","quebec":"QC","saskatchewan":"SK","yukon":"YT"}
 
     function convertStateToAbbr(input) {
-    if(input === undefined) return input;
-    let strInput = input.trim();
-    if(strInput.length === 2) {
-        // already abbr, check if it's valid
-        let upStrInput = strInput.toUpperCase();
-        return _MapAbbrFullName[upStrInput]?upStrInput :undefined;
-    }
-    let strStateToFind = strInput.toLowerCase().replace(/\ /g, '');
-    let foundAbbr = _MapFullNameAbbr[strStateToFind];
-    return foundAbbr;
+        if (input === undefined) return input;
+        let strInput = input.trim();
+        if (strInput.length === 2) {
+            // already abbr, check if it's valid
+            let upStrInput = strInput.toUpperCase();
+            return _MapAbbrFullName[upStrInput] ? upStrInput : undefined;
+        }
+        let strStateToFind = strInput.toLowerCase().replace(/\ /g, '');
+        let foundAbbr = _MapFullNameAbbr[strStateToFind];
+        return foundAbbr;
     }
 
     function convertStateToFullName(input) {
