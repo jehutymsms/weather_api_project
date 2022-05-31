@@ -48,10 +48,13 @@ export const formatSearch = (() =>{
     }
 
     let searchValidation = (arrayString) =>{
-        if (arrayString.includes('Country Does not exist') || arrayString.includes('State Does not exist')) {
-            return 'This is a good item'
+        if (arrayString.includes('Country Does not exist')){
+            return 'Country Does not exist'
         }
-        return 'This is a bad item'
+        if (arrayString.includes('State Does not exist')) {
+            return 'State Does not exist'
+        }
+        return arrayString
     }
 
 
@@ -72,7 +75,10 @@ export const formatSearch = (() =>{
     }
 
 
-    let apiItem = (searchTerm) =>{
+    let apiItem = (Term) =>{
+        if (Term) {
+            return searchValidation(formatItem(Term))
+        }
         return searchValidation(formatItem(searchTerm))
     }
 

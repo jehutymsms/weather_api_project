@@ -6,8 +6,8 @@ export const apiSearch = (() =>{
 
     // Functions
 
-    console.log(formatSearch.apiItem('San Antonio, Texa, United States '))
-    console.log(formatSearch.apiItem('San Antonio, United Stats'))
+    console.log(formatSearch.apiItem('San Antonio, Texas, United States '))
+    console.log(formatSearch.apiItem('San Antonio, United States'))
     console.log(formatSearch.apiItem('San Antonio'))
     
     // API Retreival based on search
