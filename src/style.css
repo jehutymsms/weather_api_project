@@ -47,10 +47,21 @@ body{
 #gridFormItem{
     grid-area: form;
     padding: 1em;
+    background-color: rgb(20, 72, 114);
 }
 #gridFormItem>*{
     padding: 0.5em;
 }
+
+.errorText{
+    display: none;
+    color: red;
+}
+
+.active{
+    display: block;
+}
+
 #gridMainDisplayItem{
     grid-area: displayItem;
 }

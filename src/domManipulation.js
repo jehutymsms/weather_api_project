@@ -1,9 +1,10 @@
+import { apiSearch } from './/apiSearch';
+
 export const domManipulation = (() => {
 
-    const button = document.querySelector('button'),
-        searchTerm = document.querySelector('#searchTerm'),
-        body = document.querySelector('body'),
-        form = document.querySelector('form'),
+    const  defaultError = document.getElementById('defaultError'),
+        stateError = document.getElementById('stateError'),
+        countryError = document.getElementById('countryError'),
         mainDisplayItem = document.getElementById('gridMainDisplayItem'),
         gridItem = document.getElementsByClassName('gridItem'),
         currentDay = new Date().toLocaleDateString('en-us', { weekday: "long" }),
@@ -89,6 +90,17 @@ export const domManipulation = (() => {
         }
     };
 
-    return {defaultDateDisplay}
+    // Error in Search Function
+    let searchError = (string) => {
+        if (defaultError.classList.contains('active')) {
+            console.log('Element Active')
+            defaultError.classList.toggle('active')
+        }else{
+            defaultError.classList.toggle('active')
+            console.log('Not Element Active')
+        } 
+    }
+
+    return {defaultDateDisplay, displayWeather, searchError}
     
 })()
