@@ -10,20 +10,25 @@ const button = document.querySelector('button'),
 
 // Functions
 
-let validateSearch = (searchItem) =>{
-    if (Array.isArray(searchItem)) {
-        return true
+let validateSearch = () =>{
+    try {
+        if (Array.isArray(formatSearch.apiItem())) {
+            console.log('true')
+        }else{
+            console.log('false')
+        }
+    } catch (error) {
+        domManipulation.searchError('d')
+        console.log('Error')
     }
-    return false
+
 }
 
-console.log(validateSearch(formatSearch.apiItem('San Antonio, Texas, United States ')))
-console.log(validateSearch(formatSearch.apiItem('San Antonio, United States')))
-console.log(validateSearch(formatSearch.apiItem('San Antonio')))
 
 // Event Listeners
 button.addEventListener('click', function (event) {
-    domManipulation.searchError()
+    validateSearch()
+    // apiSearch.apiItem()
     // domManipulation.displayWeather()
     event.preventDefault();
 });

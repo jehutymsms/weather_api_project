@@ -2,8 +2,7 @@ import {stateCodeLocate} from './stateCodeLocate';
 
 export const formatSearch = (() =>{
     // Variables
-    const searchTerm = document.querySelector('#searchTerm'),
-        lookupCCode = require('country-code-lookup')
+    const lookupCCode = require('country-code-lookup')
 
 
     // Functions
@@ -60,8 +59,11 @@ export const formatSearch = (() =>{
 
     // Format String for Searching with API
     let formatItem = (string) => {
+        
         let sItem = string.split(','),
             wSpaceRemoved = stringFormat(sItem)
+
+
         if (wSpaceRemoved.length == 2) {
             wSpaceRemoved[1] = isoCountryCode(wSpaceRemoved[1])
         }
@@ -75,10 +77,8 @@ export const formatSearch = (() =>{
     }
 
 
-    let apiItem = (Term) =>{
-        if (Term) {
-            return searchValidation(formatItem(Term))
-        }
+    let apiItem = () =>{
+        let searchTerm = document.querySelector('#searchTerm').value
         return searchValidation(formatItem(searchTerm))
     }
 

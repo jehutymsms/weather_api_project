@@ -91,16 +91,24 @@ export const domManipulation = (() => {
     };
 
     // Error in Search Function
-    let searchError = (string) => {
-        if (defaultError.classList.contains('active')) {
-            console.log('Element Active')
-            defaultError.classList.toggle('active')
-        }else{
-            defaultError.classList.toggle('active')
-            console.log('Not Element Active')
-        } 
+    let searchError = (para) => {
+        stateError.classList.remove('active')
+        countryError.classList.remove('active')
+        defaultError.classList.remove('active')
+
+        if (para == 's') {
+            stateError.classList.add('active')
+        }
+        if (para == 'c') {
+            countryError.classList.add('active')
+        }
+        if (para == 'd') {
+            defaultError.classList.add('active')
+        }
+
+        return
     }
 
-    return {defaultDateDisplay, displayWeather, searchError}
+    return { defaultDateDisplay, displayWeather, searchError }
     
 })()
